@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-fmlwn*1*v)1xi*r7vp0q$x!yww!r*g$d^l7%gi_18*)f*_*#ld'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,11 +80,19 @@ WSGI_APPLICATION = 'resume_analyzer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Resumatch',  # Replace with your PostgreSQL database name
+        'USER': 'postgres',  # Replace with your PostgreSQL username
+        'PASSWORD': 'Aswin',  # Replace with your PostgreSQL password
+        'HOST': 'localhost',  # Or the hostname of your PostgreSQL server (e.g., if on a remote server)
+        'PORT': '5432',  # Default PostgreSQL port
     }
 }
-CORS_ALLOW_ALL_ORIGINS = True
+
+
+CORS_ALLOWED_ORIGINS = [
+    "https://resu-match-n6ej.vercel.app",  # Replace with your frontend URL
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -119,7 +128,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # settings.py
 MEDIA_URL = '/media/'
